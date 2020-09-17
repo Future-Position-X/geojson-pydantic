@@ -24,11 +24,11 @@ class Feature(BaseModel):
 
     @validator("geometry", pre=True, always=True)
     def set_geometry(cls, v):
-        #"""set geometry from geo interface or input"""
-        #if hasattr(v, "__geo_interface__"):
+        """set geometry from geo interface or input"""
+        if hasattr(v, "__geo_interface__"):
             #return v.__geo_interface__
-        #return v
-        return parse_geometry_obj(v)
+            return parse_geometry_obj(v.__geo_interface__)
+        return v
 
 
 class FeatureCollection(BaseModel):
