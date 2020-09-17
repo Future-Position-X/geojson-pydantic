@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field, validator
 
-from .geometries import Geometry
+from .geometries import Geometry, parse_geometry_obj
 from .utils import BBox
 
 
@@ -24,10 +24,11 @@ class Feature(BaseModel):
 
     @validator("geometry", pre=True, always=True)
     def set_geometry(cls, v):
-        """set geometry from geo interface or input"""
-        if hasattr(v, "__geo_interface__"):
-            return v.__geo_interface__
-        return v
+        #"""set geometry from geo interface or input"""
+        #if hasattr(v, "__geo_interface__"):
+            #return v.__geo_interface__
+        #return v
+        return parse_geometry_obj(v)
 
 
 class FeatureCollection(BaseModel):
